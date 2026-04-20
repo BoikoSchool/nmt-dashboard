@@ -65,9 +65,11 @@ export default function QuestionDetailModal({ question, onClose }) {
           <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-2">
             Відповіді учнів
           </p>
-          {question.answers.map((a, i) => (
-            <AnswerRow key={i} answer={a} />
-          ))}
+          {[...question.answers]
+            .sort((a, b) => a.isCorrect - b.isCorrect)
+            .map((a, i) => (
+              <AnswerRow key={i} answer={a} />
+            ))}
         </div>
       </div>
     </div>
