@@ -56,7 +56,7 @@ export default function QuestionDetailModal({ question, onClose }) {
         {question.correctAnswer && (
           <div className="mx-6 mt-4 px-4 py-3 bg-emerald-50 border border-emerald-200 rounded-xl">
             <p className="text-xs font-semibold text-emerald-700 mb-0.5">Правильна відповідь</p>
-            <p className="text-sm text-emerald-900">{question.correctAnswer}</p>
+            <p className="text-sm text-emerald-900">{cleanQuestion(question.correctAnswer)}</p>
           </div>
         )}
 
@@ -101,7 +101,7 @@ function AnswerRow({ answer }) {
             <span className="text-xs text-stone-400">{answer.className}</span>
           )}
         </div>
-        <p className="text-xs text-stone-500 mt-0.5 break-words">{answer.studentAnswer || "—"}</p>
+        <p className="text-xs text-stone-500 mt-0.5 break-words">{cleanQuestion(answer.studentAnswer) || "—"}</p>
       </div>
       <span className="text-xs tabular-nums text-stone-400 shrink-0">{answer.points} б.</span>
     </div>

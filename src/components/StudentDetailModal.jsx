@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, ChevronRight, CheckCircle2, XCircle, Clock, BookOpen } from "lucide-react";
 import { scoreBadgeClass } from "../lib/colors.js";
-import { shortQuestion } from "../lib/parser.js";
+import { shortQuestion, cleanQuestion } from "../lib/parser.js";
 
 export default function StudentDetailModal({ student, onClose }) {
   const [openBlocks, setOpenBlocks] = useState(new Set());
@@ -140,7 +140,7 @@ function QuestionRow({ row }) {
           <span className="text-xs text-stone-400 tabular-nums">{row.points} б.</span>
           {!isCorrect && row.correctAnswer && (
             <span className="text-xs text-red-600">
-              Правильно: <span className="font-medium">{row.correctAnswer}</span>
+              Правильно: <span className="font-medium">{cleanQuestion(row.correctAnswer)}</span>
             </span>
           )}
         </div>
