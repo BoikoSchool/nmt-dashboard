@@ -53,7 +53,7 @@ export function cleanQuestion(text) {
   return text
     .replace(/!\[Image\]\([^)]+\)/g, " [зображення]")
     .replace(/\$([^$]+)\$/g, "$1")
-    .replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, "($1)/($2)")
+    .replace(/\\d?frac\{([^}]+)\}\{([^}]+)\}/g, "($1)/($2)")
     .replace(/\\sqrt\{([^}]+)\}/g, "√($1)")
     .replace(/\\operatorname\{([^}]+)\}/g, "$1")
     .replace(/\\[a-zA-Z]+/g, "")
