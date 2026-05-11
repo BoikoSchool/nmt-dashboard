@@ -51,13 +51,59 @@ export function subjectOrder(subject) {
 export function cleanQuestion(text) {
   if (!text) return "";
   return text
+    // images
     .replace(/!\[Image\]\([^)]+\)/g, " [зображення]")
+    // strip $...$ wrappers
+    .replace(/\$\$([^$]+)\$\$/g, "$1")
     .replace(/\$([^$]+)\$/g, "$1")
-    .replace(/\\d?frac\{([^}]+)\}\{([^}]+)\}/g, "($1)/($2)")
+    // sqrt with index: \sqrt[n]{x} → n√(x)
+    .replace(/\\sqrt\[([^\]]+)\]\{([^}]+)\}/g, "$1√($2)")
+    // sqrt without index: \sqrt{x} → √(x)
     .replace(/\\sqrt\{([^}]+)\}/g, "√($1)")
+    // fractions: \frac{a}{b} and \dfrac{a}{b} → (a)/(b)
+    .replace(/\\d?frac\{([^}]+)\}\{([^}]+)\}/g, "($1)/($2)")
+    // operatorname
     .replace(/\\operatorname\{([^}]+)\}/g, "$1")
+    // environments
+    .replace(/\\begin\{[^}]+\}/g, "")
+    .replace(/\\end\{[^}]+\}/g, "")
+    // \left / \right → strip (keep the bracket that follows)
+    .replace(/\\left/g, "")
+    .replace(/\\right/g, "")
+    // double backslash (LaTeX line break) → space
+    .replace(/\\\\/g, " ")
+    // Greek letters
+    .replace(/\\alpha/g, "α")
+    .replace(/\\beta/g,  "β")
+    .replace(/\\gamma/g, "γ")
+    .replace(/\\delta/g, "δ")
+    .replace(/\\theta/g, "θ")
+    .replace(/\\lambda/g,"λ")
+    .replace(/\\mu/g,    "μ")
+    .replace(/\\sigma/g, "σ")
+    .replace(/\\phi/g,   "φ")
+    .replace(/\\omega/g, "ω")
+    .replace(/\\pi/g,    "π")
+    // math symbols
+    .replace(/\\geqslant/g, "≥")
+    .replace(/\\leqslant/g, "≤")
+    .replace(/\\geq/g,  "≥")
+    .replace(/\\leq/g,  "≤")
+    .replace(/\\neq/g,  "≠")
+    .replace(/\\approx/g, "≈")
+    .replace(/\\times/g,  "×")
+    .replace(/\\cdot/g,   "·")
+    .replace(/\\pm/g,     "±")
+    .replace(/\\cup/g,    "∪")
+    .replace(/\\cap/g,    "∩")
+    .replace(/\\infty/g,  "∞")
+    // trig and log — keep as readable text
+    .replace(/\\(cos|sin|tan|tg|ctg|lg|log)/g, "$1")
+    // remaining LaTeX commands → remove
     .replace(/\\[a-zA-Z]+/g, "")
+    // curly braces → remove
     .replace(/[{}]/g, "")
+    // normalize whitespace
     .replace(/\s+/g, " ")
     .trim();
 }
